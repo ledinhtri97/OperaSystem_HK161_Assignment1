@@ -172,6 +172,6 @@ http://www.tldp.org/LDP/lkmpg/2.6/html/index.html
 http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/
 https://medium.com/@ssreehari/implementing-a-system-call-in-linux-kernel-4-7-1-6f98250a8c38
 
-
-
+http://www.informit.com/articles/article.aspx?p=368650
+http://www.informit.com/articles/article.aspx?p=370047
  
