@@ -21,8 +21,8 @@ asmlinkage long sys_procmem(int pid, struct proc_segs * info){
 			info->end_code		=		task->mm->end_code;
 			info->start_data	=		task->mm->start_data;
 			info->end_data		=		task->mm->end_data;
-			info->start_heap	=		task->mm->start_heap;
-			info->end_heap		=		task->mm->end_heap;
+			info->start_heap	=		task->mm->start_sbrk;
+			info->end_heap		=		task->mm->brk;
 			info->start_stack	=		task->mm->start_stack;
 			printk("\nMy MSSV = %d", 1513656);
 			printk("Code Segment start = %lu, end = %lu\n", task->mm->start_code, task->mm->end_code);

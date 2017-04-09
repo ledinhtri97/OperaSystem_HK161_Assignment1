@@ -1,6 +1,7 @@
 #include "procmem.h"
 #include <linux/kernel.h>
 #include <sys/syscall.h>
+#include <unistd.h>
 
 long procmem(pid_t pid, struct proc_segs * info) {
 	long sysvalue;
@@ -12,6 +13,6 @@ long procmem(pid_t pid, struct proc_segs * info) {
 int main() {
 	struct proc_segs info;
 	pid_t pid = getpid();
-	printf("pid = %d\n), pid);
-	procmem(pid, info);
+	printf("pid = %d\n", pid);
+	procmem(pid, &info);
 }
