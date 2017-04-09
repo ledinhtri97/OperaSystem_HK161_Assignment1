@@ -166,6 +166,11 @@ obj-y += sys_name.o #name of syscall object file
 
               Under Linux 2.0, there is no field giving pathname.
 
+
+5.1
+QUESTION: Why we have to re-define proc segs struct while we have already defined it inside the kernel?
+
+
 https://shanetully.com/2014/04/adding-a-syscall-to-linux-3-14/
 https://www.gnu.org/prep/standards/html_node/Writing-C.html
 http://www.tldp.org/LDP/lkmpg/2.6/html/index.html
