@@ -53,7 +53,7 @@ void fe(void) {
 	printk("exit\n");
 }
 
-MODELU_LICENSE('GPL');
+MODULE_LICENSE("GPL");
 module_init(fi);
 module_exit(fe);
 
