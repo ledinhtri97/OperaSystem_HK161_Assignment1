@@ -2,8 +2,8 @@
 #include <linux/sched.h>
 #include <linux/init.h>
 #include <linux/module.h>
-#inlcude <linux/kernel.h>
-#inlcude <linux/mm.h>
+#include <linux/kernel.h>
+#include <linux/mm.h>
 
 struct proc_segs {
 	unsigned long mssv;
@@ -27,13 +27,13 @@ long sys_procmem(int pid, struct proc_segs * info){
 			info->end_code		=		task->mm->end_code;
 			info->start_data	=		task->mm->start_data;
 			info->end_data		=		task->mm->end_data;
-			info->start_heap	=		task->mm->start_heap;
-			info->end_heap		=		task->mm->end_heap;
+			info->start_heap	=		task->mm->start_brk;
+			info->end_heap		=		task->mm->brk;
 			info->start_stack	=		task->mm->start_stack;
 			printk("\nMy MSSV = %d", 1513656);
 			printk("Code Segment start = %lu, end = %lu\n", task->mm->start_code, task->mm->end_code);
 			printk("Data Segment start = %lu, end = %lu\n", task->mm->start_data, task->mm->end_data);
-			printk("Heap Segment start = %lu, end = %lu\n", task->mm->start_heap, task->mm->end_heap);
+			printk("Heap Segment start = %lu, end = %lu\n", task->mm->start_brk, task->mm->brk);
 			printk("Stack Segment start = %lu\n", task->mm->start_stack);
 			return 0;
 		}
@@ -44,7 +44,7 @@ long sys_procmem(int pid, struct proc_segs * info){
 
 int fi(void) {
 	struct proc_segs info;
-	pid = 828;
+	int pid = 828;
 	sys_procmem(pid, &info);
 	return 0;
 }
@@ -53,7 +53,7 @@ void fe(void) {
 	printk("exit\n");
 }
 
-MODELU_LICENSE("GPL");
+MODELU_LICENSE('GPL');
 module_init(fi);
 module_exit(fe);
 
