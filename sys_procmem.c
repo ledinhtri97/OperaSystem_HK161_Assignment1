@@ -19,7 +19,7 @@ asmlinkage long sys_procmem(int pid, struct proc_segs * info){
 	for_each_process(task) {
 		if(task->pid == pid) {
 			info->mssv=1513656;
-			if(!task->mm) {
+			if(task->mm != NULL) {
 				info->start_code = task->mm->start_code;
 				info->end_code = task->mm->end_code;
 				info->start_data = task->mm->start_data;
