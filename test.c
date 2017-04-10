@@ -23,30 +23,43 @@ static long sys_procmem(int pid_, struct proc_segs * info) {
 	printk(KERN_INFO "Inside function \n");
 	for_each_process(task) {
 		printk(KERN_INFO "Finding... \n");
-		if(task->pid == pid_) {
-		/*	info->mssv=1513656;
-			info->start_code	=		task->mm->start_code;
-			info->end_code		=		task->mm->end_code;
-			info->start_data	=		task->mm->start_data;
-			info->end_data		=		task->mm->end_data;
-			info->start_heap	=		task->mm->start_brk;
-			info->end_heap		=		task->mm->brk;
-			info->start_stack	=		task->mm->start_stack;
-		*/	printk(KERN_INFO "\nMy MSSV = %d", 1513656);
+		if(!task->mm) {
+				info->start_code = task->mm->start_code;
+				info->end_code = task->mm->end_code;
+				info->start_data = task->mm->start_data;
+				info->end_data = task->mm->end_data;
+				info->start_heap = task->mm->start_brk;
+				info->end_heap = task->mm->brk;
+				info->start_stack = task->mm->start_stack;
+			}
+			else {
+				info->start_code = task->active_mm->start_code;
+				info->end_code = task->active_mm->end_code;
+				info->start_data = task->active_mm->start_data;
+				info->end_data = task->active_mm->end_data;
+				info->start_heap = task->active_mm->start_brk;
+				info->end_heap = task->active_mm->brk;
+				info->start_stack = task->active_mm->start_stack;
+			}
+			return 0;
+		}
+	}
+	return -1;
+}
+
+static int __init fi(void) {
+	long res;
+	struct proc_segs info;
+	res = sys_procmem(pid, &info);
+	if(res == 0) {
+			printk(KERN_INFO "\nMy MSSV = %d", 1513656);
 			printk(KERN_INFO "Code Segment start = %lu, end = %lu\n", task->mm->start_code, task->mm->end_code);
 			printk(KERN_INFO "Data Segment start = %lu, end = %lu\n", task->mm->start_data, task->mm->end_data);
 			printk(KERN_INFO "Heap Segment start = %lu, end = %lu\n", task->mm->start_brk, task->mm->brk);
 			printk(KERN_INFO "Stack Segment start = %lu\n", task->mm->start_stack);
-			return 0;
-		}
-	}
-	printk(KERN_INFO "Pid not found\n");
-	return 0;
-}
-
-static int __init fi(void) {
-	struct proc_segs info;
-	sys_procmem(pid, &info);
+	} 
+	else
+		printk(KERN_INFO "Pid not found\n");
 	return 0;
 }
 
