@@ -1,0 +1,64 @@
+Module                  Size  Used by
+test                   16384  1
+vmw_vsock_vmci_transport    32768  1
+vsock                  32768  2 vmw_vsock_vmci_transport
+btusb                  36864  0
+btrtl                  16384  1 btusb
+btbcm                  16384  1 btusb
+snd_ens1371            24576  0
+btintel                16384  1 btusb
+snd_ac97_codec        106496  1 snd_ens1371
+bluetooth             475136  5 btbcm,btrtl,btusb,btintel
+gameport               16384  1 snd_ens1371
+snd_rawmidi            28672  1 snd_ens1371
+snd_seq_device         16384  1 snd_rawmidi
+ac97_bus               16384  1 snd_ac97_codec
+snd_pcm                94208  2 snd_ac97_codec,snd_ens1371
+coretemp               16384  0
+ppdev                  20480  0
+crc32_pclmul           16384  0
+aesni_intel            20480  0
+aes_i586               20480  1 aesni_intel
+xts                    16384  1 aesni_intel
+lrw                    16384  1 aesni_intel
+snd_timer              28672  1 snd_pcm
+gf128mul               16384  2 lrw,xts
+ablk_helper            16384  1 aesni_intel
+snd                    69632  6 snd_ac97_codec,snd_timer,snd_pcm,snd_rawmidi,snd_ens1371,snd_seq_device
+input_leds             16384  0
+joydev                 20480  0
+cryptd                 20480  1 ablk_helper
+vmw_balloon            20480  0
+serio_raw              16384  0
+soundcore              16384  1 snd
+nfit                   28672  0
+vmw_vmci               61440  2 vmw_vsock_vmci_transport,vmw_balloon
+8250_fintek            16384  0
+i2c_piix4              20480  0
+parport_pc             32768  0
+mac_hid                16384  0
+shpchp                 32768  0
+parport                45056  2 ppdev,parport_pc
+autofs4                40960  2
+hid_generic            16384  0
+usbhid                 49152  0
+hid                    98304  2 hid_generic,usbhid
+vmwgfx                204800  1
+ttm                    90112  1 vmwgfx
+drm_kms_helper        131072  1 vmwgfx
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+fb_sys_fops            16384  1 drm_kms_helper
+drm                   307200  4 ttm,drm_kms_helper,vmwgfx
+psmouse               118784  0
+ahci                   36864  0
+mptspi                 24576  2
+libahci                32768  1 ahci
+mptscsih               40960  1 mptspi
+mptbase                98304  2 mptspi,mptscsih
+pcnet32                40960  0
+mii                    16384  1 pcnet32
+scsi_transport_spi     28672  1 mptspi
+pata_acpi              16384  0
+fjes                   28672  0

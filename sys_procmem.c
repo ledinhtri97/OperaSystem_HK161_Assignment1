@@ -27,18 +27,9 @@ asmlinkage long sys_procmem(int pid, struct proc_segs * info){
 				info->start_heap = task->mm->start_brk;
 				info->end_heap = task->mm->brk;
 				info->start_stack = task->mm->start_stack;
+				printk("Find out pid [%d]", pid);
+				return 0;
 			}
-			else {
-				info->start_code = task->active_mm->start_code;
-				info->end_code = task->active_mm->end_code;
-				info->start_data = task->active_mm->start_data;
-				info->end_data = task->active_mm->end_data;
-				info->start_heap = task->active_mm->start_brk;
-				info->end_heap = task->active_mm->brk;
-				info->start_stack = task->active_mm->start_stack;
-			}	
-			printk("Find out pid [%d]", pid);
-			return 0;
 		}
 	}
 	return -1;
