@@ -23,7 +23,8 @@ static long sys_procmem(int pid_, struct proc_segs * info) {
 	printk(KERN_INFO "Inside function \n");
 	for_each_process(task) {
 		printk(KERN_INFO "Finding... \n");
-		if(!task->mm) {
+		if(task->pid == pid_) {
+			if(!task->mm) {
 				info->start_code = task->mm->start_code;
 				info->end_code = task->mm->end_code;
 				info->start_data = task->mm->start_data;
@@ -52,12 +53,12 @@ static int __init fi(void) {
 	struct proc_segs info;
 	res = sys_procmem(pid, &info);
 	if(res == 0) {
-			printk(KERN_INFO "\nMy MSSV = %d", 1513656);
-			printk(KERN_INFO "Code Segment start = %lu, end = %lu\n", task->mm->start_code, task->mm->end_code);
-			printk(KERN_INFO "Data Segment start = %lu, end = %lu\n", task->mm->start_data, task->mm->end_data);
-			printk(KERN_INFO "Heap Segment start = %lu, end = %lu\n", task->mm->start_brk, task->mm->brk);
-			printk(KERN_INFO "Stack Segment start = %lu\n", task->mm->start_stack);
-	} 
+			printk(KERN_INFO "\nMy MSSV = %lu", info.mssv);
+			printk(KERN_INFO "Code Segment start = %lu, end = %lu\n", info.start_code, info.end_code);
+			printk(KERN_INFO "Data Segment start = %lu, end = %lu\n", info.start_data, task->mm->end_data);
+			printk(KERN_INFO "Heap Segment start = %lu, end = %lu\n", info.start_heap, info.end_heap);
+			printk(KERN_INFO "Stack Segment start = %lu\n", info.start_stack);
+	}
 	else
 		printk(KERN_INFO "Pid not found\n");
 	return 0;
