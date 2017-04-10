@@ -170,7 +170,48 @@ obj-y += sys_name.o #name of syscall object file
 5.1
 QUESTION: Why we have to re-define proc segs struct while we have already defined it inside the kernel?
 
+=============================================================================================
+Note: Error Module is in use
+The Linux kernel is only willing to unload modules if their module_exit function returns 
+successfully. If some function from the module crashes, the kernel may be able to recover, 
+but the module is locked in memory. It may be possible to rummage through the kernel data 
+structures and forcibly mark the module as unloadable (try patching the module_exit function 
+to do nothing), but that's risky. Your best bet is to reboot.
 
+The normal way to test a kernel module is in a virtual machine. Don't test the module on your 
+development machine. A VM has the advantage over a physical machine that you can save the VM 
+state in a ready-for-testing configuration and restore it as many times as you like, 
+which saves the startup time between tests.
+============================================================================================
+
+
+============================================================================================
+Error: process->mm and process->active_mm gives NULL in linux kernel
+It means you are in an kernel thread. The mm struct is null for the kernel threads. 
+
+In linux, kernel threads have no mm struct. An kernel thread borrows the mm from previous user 
+thread and recorded it in active_mm. So you should use active_mm instead.
+More details:
+
+in /kernel/sched/core.c you can find the following code:
+
+static inline void
+context_switch(struct rq *rq, struct task_struct *prev,
+           struct task_struct *next)
+{
+    ...
+    if (!mm) {
+        next->active_mm = oldmm;
+        atomic_inc(&oldmm->mm_count);
+        enter_lazy_tlb(oldmm, next);
+    } else
+        switch_mm(oldmm, mm, next);
+    ...
+}
+
+If the next thread have no mm (a kernel thread). The scheduler would not switch mm and just 
+reuse the mm of the previous thread.
+============================================================================================
 https://shanetully.com/2014/04/adding-a-syscall-to-linux-3-14/
 https://www.gnu.org/prep/standards/html_node/Writing-C.html
 http://www.tldp.org/LDP/lkmpg/2.6/html/index.html
