@@ -1,1 +1,0 @@
-cmd_/home/student/OSHK161_Assignment1_1513656/test.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/student/OSHK161_Assignment1_1513656/test.ko /home/student/OSHK161_Assignment1_1513656/test.o /home/student/OSHK161_Assignment1_1513656/test.mod.o
