@@ -1,4 +1,7 @@
-﻿Q: Why we need to install kernel-package
+find . -name .git -print0 | xargs -0 rm -rf
+remove file git in linux
+
+Q: Why we need to install kernel-package
 A: Bởi vì tại đây chúng ta có rất nhiều phiên bản hat nhân (kernel) để cho chúng ta lựa chọn sao cho phù hợp
 với cấu hình phân cứng của máy ảo hay máy thật của bạn.
 
@@ -64,7 +67,8 @@ Similarly, add the following line to the end of syscall_64.tbl if you use the OS
 
 4 Compiling Linux Kernel
 
-- Build the configured kernel
+- Build the configured kernel
+
 * run "make" to complie the kernel and create vmlinuz. but "$ make" takes long time to run, we can use tag
 "-j np", where np is the number of processes you run this command.
 ->Or
@@ -211,6 +215,18 @@ context_switch(struct rq *rq, struct task_struct *prev,
 
 If the next thread have no mm (a kernel thread). The scheduler would not switch mm and just 
 reuse the mm of the previous thread.
+
+============================================================================================
+compile
+1. copy file procmem.h to /usr/include
+sudo cp <path of procmem.h> /usr/include
+QUESTION: Why root privilege (e.g. adding sudo before the cp command) is required to copy the header
+file to /usr/include?
+
+$ gcc -shared -fpic procmem.c -o libprocmem.so
+then we can compile test.c by
+$ gcc -o test test.c lprocmem
+
 ============================================================================================
 https://shanetully.com/2014/04/adding-a-syscall-to-linux-3-14/
 https://www.gnu.org/prep/standards/html_node/Writing-C.html
@@ -220,4 +236,7 @@ https://medium.com/@ssreehari/implementing-a-system-call-in-linux-kernel-4-7-1-6
 
 http://www.informit.com/articles/article.aspx?p=368650
 http://www.informit.com/articles/article.aspx?p=370047
+
+http://rogerdudler.github.io/git-guide/index.vi.html
+http://gitref.org/
  
