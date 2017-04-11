@@ -1,0 +1,6 @@
+PID: 633
+Student ID: 3076292844
+Code segment: start = 0x2, end = 0x0
+Data segment: start = 0xb75dea30, end = 0x80487cb
+Heap segment: start = 0x2, end = 0xbf9fdb74
+Stack stack: start = 0xbf9fdb80
